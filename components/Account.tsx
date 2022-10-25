@@ -1,19 +1,17 @@
 import { useState, useEffect } from "react";
-import {
-  useUser,
-  useSupabaseClient,
-  Session,
-} from "@supabase/auth-helpers-react";
+import { useUser, Session } from "@supabase/auth-helpers-react";
 import { Database } from "../utils/database.types";
+import { supabase } from "../lib/supabaseClient";
+
 type Profiles = Database["public"]["Tables"]["profiles"]["Row"];
 
 export default function Account({ session }: { session: Session }) {
-  const supabase = useSupabaseClient<Database>();
   const user = useUser();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState<Profiles["username"]>(null);
   const [website, setWebsite] = useState<Profiles["website"]>(null);
   const [avatar_url, setAvatarUrl] = useState<Profiles["avatar_url"]>(null);
+  console.log("SESSION ", session);
 
   useEffect(() => {
     getProfile();
