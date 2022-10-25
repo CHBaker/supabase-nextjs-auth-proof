@@ -1,6 +1,7 @@
 import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Account from "../components/Account";
+import { EnrollMFA } from "../components/EnrollMFA";
 
 const Home = () => {
   const session = useSession();
@@ -15,7 +16,7 @@ const Home = () => {
           theme="dark"
         />
       ) : (
-        <Account session={session} />
+        <EnrollMFA onEnrolled={() => console.log("userEnrolled")} />
       )}
     </div>
   );
