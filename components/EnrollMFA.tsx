@@ -25,6 +25,7 @@ export function EnrollMFA({
     setError("");
 
     (async () => {
+      console.log("challenging");
       const challenge = await supabase.auth.mfa.challenge({ factorId });
       if (challenge.error) {
         setError(challenge.error.message);
@@ -49,12 +50,15 @@ export function EnrollMFA({
 
   useEffect(() => {
     (async () => {
+      console.log("enrol");
       const { data, error } = await supabase.auth.mfa.enroll({
         factorType: "totp",
       });
       if (error) {
         throw error;
       }
+
+      console.log("set factorID ", factorId);
 
       setFactorId(data.id);
 
